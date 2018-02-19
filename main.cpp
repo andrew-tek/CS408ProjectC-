@@ -27,7 +27,21 @@ list <string> unionSet (list <string> listOne, list <string> listTwo) {
 
 list <string> intersection (list <string> listOne, list <string> listTwo) {
 	list <string> solution;
+	for (string str : listOne) {
+		if (containsInList(listTwo, str)) {
+			solution.push_front(str);
+		}
+	}
+	return solution;
+}
 
+list <string> difference (list <string> listOne, list <string> listTwo) {
+	list <string> solution;
+	for (string str : listOne) {
+		if (!containsInList(listTwo, str)) {
+			solution.push_front(str);
+		}
+	}
 	return solution;
 }
 
@@ -41,10 +55,10 @@ int main() {
 	list <string> l2;
 
 	l2.push_front("test");
-	l2.push_front("itch");
+	l1.push_front("itch");
 	l2.push_front("blah blah");
 
-	list <string> solution = unionSet(l1, l2);
+	list <string> solution = difference(l1, l2);
 	for (string s : solution) {
 		cout << s << endl;
 	}
