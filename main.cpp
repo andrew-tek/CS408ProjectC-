@@ -1,7 +1,10 @@
 #include <iostream>
 #include <list>
-using namespace std;
+#include "Node.h"
+#include "LinkedList.h"
+#include "SetLinkedList.h"
 
+using namespace std;
 
 bool containsInList(list <string> list, string value) {
 	for (string str : list) {
@@ -11,6 +14,8 @@ bool containsInList(list <string> list, string value) {
 	}
 	return false;
 }
+
+
 
 list <string> unionSet (list <string> listOne, list <string> listTwo) {
 	list <string> solution;
@@ -48,7 +53,6 @@ list <string> difference (list <string> listOne, list <string> listTwo) {
 
 int main() {
 	list <string> l1;
-	cout << "Hello World!!!" << endl; // prints !!!Hello World!!!
 	l1.push_front("test");
 	l1.push_front("hello again");
 
@@ -59,8 +63,40 @@ int main() {
 	l2.push_front("blah blah");
 
 	list <string> solution = difference(l1, l2);
+	cout << "SOLUTION";
 	for (string s : solution) {
 		cout << s << endl;
 	}
+
+	Node n;
+	n.setValue("TEST");
+	cout << n.getValue();
+
+	LinkedList list1, list2;
+	list1.addToBeginning("A");
+	list1.addToBeginning("B");
+	list1.printList();
+	list2.addToBeginning("A");
+	list2.addToBeginning("C");
+	cout << endl;
+	list2.printList();
+
+	cout << endl;
+
+
+	SetLinkedList setLinkedList;
+	LinkedList winner;
+//	winner = setLinkedList.difference(list1, list2);
+	winner = list1 + list2;
+	cout << "Union:";
+	winner.printList();
+
+	winner = list1 * list2;
+	cout << "Intersect:";
+	winner.printList();
+
+	winner = list1 - list2;
+	cout << "Difference:";
+	winner.printList();
 	return 0;
 }
