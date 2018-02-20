@@ -16,7 +16,6 @@ bool containsInList(list <string> list, string value) {
 }
 
 
-
 list <string> unionSet (list <string> listOne, list <string> listTwo) {
 	list <string> solution;
 	for (string str : listOne) {
@@ -50,53 +49,132 @@ list <string> difference (list <string> listOne, list <string> listTwo) {
 	return solution;
 }
 
+void printMenu() {
+	cout << "Please select from the following options." << endl;
+	cout << "1. Sets using a list." << endl;
+	cout << "2. Sets using an ADT (Linked List). " << endl;
+	cout << "3. Exit Program." << endl;
+	cout << "Enter Choice: ";
+}
+
+void populateList (list <string> &l1, list <string> &l2) {
+	string str;
+	while (str != "-1") {
+		cout << "Please enter a string for List1 (Enter -1 to exit):";
+		cin >> str;
+		if (str != "-1") {
+			l1.push_back(str);
+		}
+	}
+	str = "1";
+	while (str != "-1") {
+		cout << "Please enter a string for List2 (Enter -1 to exit): ";
+		cin >> str;
+		if (str != "-1") {
+			l2.push_back(str);
+		}
+	}
+}
+
+void populateLinkedList (LinkedList &l1, LinkedList &l2) {
+	string str;
+	while (str != "-1") {
+		cout << "Please enter a string for List1 (Enter -1 to exit):";
+		cin >> str;
+		if (str != "-1") {
+			l1.addToBeginning(str);
+		}
+	}
+	str = "1";
+	while (str != "-1") {
+		cout << "Please enter a string for List2 (Enter -1 to exit): ";
+		cin >> str;
+		if (str != "-1") {
+			l2.addToBeginning(str);
+		}
+	}
+}
+
+void printSetOps() {
+	string choice;
+	cout << "Please select an option." << endl;
+	cout << "1. List 1 Union List 2" << endl;
+	cout << "2. List 1 Intersect List 2" << endl;
+	cout << "3. List 1 Difference List 2" << endl;
+}
+
+void printList (list <string> list) {
+	for (string str : list) {
+		cout << str << "  ";
+	}
+	cout << endl;
+}
 
 int main() {
-	list <string> l1;
-	l1.push_front("test");
-	l1.push_front("hello again");
+	int option, setOpsChoice;
+	list <string> list1, list2, solutionList;
+	LinkedList linkedList1, linkedList2, solutionLinkedList;
+	while (option != 3) {
+		list <string> list1, list2, solutionList;
+		LinkedList linkedList1, linkedList2, solutionLinkedList;
+		printMenu();
+		cin >> option;
+		if (option == 1) {
+			populateList (list1, list2);
+			printSetOps();
+			cin >> setOpsChoice;
+			if (setOpsChoice == 1) {
+				solutionList = unionSet(list1, list2);
+			}
+			else if (setOpsChoice == 2) {
+				solutionList = intersection (list1, list2);
+			}
+			else if (setOpsChoice == 3) {
+				solutionList = difference (list1, list2);
+			}
+			else {
+				cout << "Invalid Entry";
+			}
+			cout << "List 1: ";
+			printList(list1);
+			cout << "List 2: ";
+			printList(list2);
+			cout << "Solution Set: ";
+			printList(solutionList);
 
-	list <string> l2;
-
-	l2.push_front("test");
-	l1.push_front("itch");
-	l2.push_front("blah blah");
-
-	list <string> solution = difference(l1, l2);
-	cout << "SOLUTION";
-	for (string s : solution) {
-		cout << s << endl;
+		}
+		else if (option == 2) {
+			populateLinkedList (linkedList1, linkedList2);
+			printSetOps();
+			cin >> setOpsChoice;
+			if (setOpsChoice == 1) {
+				solutionLinkedList = linkedList1 + linkedList2;
+			}
+			else if (setOpsChoice == 2) {
+				solutionLinkedList = linkedList1 * linkedList2;
+			}
+			else if (setOpsChoice == 3) {
+				solutionLinkedList = linkedList1 - linkedList2;
+			}
+			else {
+				cout << "Invalid Entry";
+			}
+			cout << "Linked List 1: ";
+			linkedList1.printList();
+			cout << endl;
+			cout << "List 2: ";
+			linkedList2.printList();
+			cout << endl;
+			cout << "Solution Set: ";
+			solutionLinkedList.printList();
+			cout << endl;
+		}
+		else {
+			cout << "Exiting Program";
+		}
 	}
 
-	Node n;
-	n.setValue("TEST");
-	cout << n.getValue();
-
-	LinkedList list1, list2;
-	list1.addToBeginning("A");
-	list1.addToBeginning("B");
-	list1.printList();
-	list2.addToBeginning("A");
-	list2.addToBeginning("C");
-	cout << endl;
-	list2.printList();
-
-	cout << endl;
 
 
-	SetLinkedList setLinkedList;
-	LinkedList winner;
-//	winner = setLinkedList.difference(list1, list2);
-	winner = list1 + list2;
-	cout << "Union:";
-	winner.printList();
-
-	winner = list1 * list2;
-	cout << "Intersect:";
-	winner.printList();
-
-	winner = list1 - list2;
-	cout << "Difference:";
-	winner.printList();
 	return 0;
 }
